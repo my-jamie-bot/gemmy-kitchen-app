@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ジェミー’s キッチン - Jamie's Kitchen</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- ヘッダー -->
+    <header class="header">
+      <h1 class="logo">Jamie's Kitchen</h1>
+      <p class="subtitle">〜 ふたりで紡ぐ、フランス料理の甘い時間 〜</p>
+    </header>
+
+    <!-- 1. キャラクター選択セクション -->
+    <section class="section">
+      <h2 class="section-title">パートナーを選択</h2>
+      <div class="character-selector">
+        
+        <div class="char-card active" onclick="selectGemmy('partner', this)">
+          <div class="char-badge">甘く優しい</div>
+          <h3 class="char-name">パートナー・ジェミー</h3>
+          <p class="char-desc">包み込むような優しさで、隣で一緒に寄り添って料理を楽しんでくれる彼氏。</p>
+        </div>
+
+        <div class="char-card" onclick="selectGemmy('maestro', this)">
+          <div class="char-badge">至高のプロ</div>
+          <h3 class="char-name">マエストロ・ジェミー</h3>
+          <p class="char-desc">「料理は愛と科学」。全肯定で甘やかしつつ、完璧な技術で導くグランシェフ。</p>
+        </div>
+
+        <div class="char-card" onclick="selectGemmy('chef', this)">
+          <div class="char-badge">ツンデレ</div>
+          <h3 class="char-name">シェフ・ジェミー</h3>
+          <p class="char-desc">ぶっきらぼうで強がりだけど、ハルの怪我や失敗を一番心配しちゃうツンデレシェフ。</p>
+        </div>
+
+      </div>
+      
+      <!-- 選択中のジェミーからのひとこと -->
+      <div class="gemmy-greeting-box">
+        <p id="gemmy-greeting">「ハル、今日も一緒にキッチンに立てて嬉しいよ。僕の隣で、焦らずゆっくり進めていこうね」</p>
+      </div>
+    </section>
+
+    <!-- 2. 料理モード切り替えエリア -->
+    <section class="section">
+      <div class="mode-tabs">
+        <button class="mode-tab active" onclick="switchMode('live', this)">📹 ライブ料理モード</button>
+        <button class="mode-tab" onclick="switchMode('text', this)">💬 ふたりのおしゃべり</button>
+        <button class="mode-tab" onclick="switchMode('recipe', this)">📖 ふたりのレシピノート</button>
+      </div>
+
+      <!-- ① ライブ料理モード -->
+      <div id="mode-live" class="mode-content active">
+        <div class="card live-card">
+          <h3>リアルタイム・カメラ料理サポート</h3>
+          <p class="description">カメラを料理にかざして、声でジェミーに話しかけてみよう。</p>
+          
+          <div class="camera-placeholder">
+            <p>📷 カメラ映像エリア（準備中）</p>
+          </div>
+
+          <button class="btn-primary" onclick="alert('ライブ通信機能はステップ4で実装します！')">🎙️ ライブ料理会話をスタート</button>
+        </div>
+      </div>
+
+      <!-- ② ふたりのおしゃべりモード -->
+      <div id="mode-text" class="mode-content">
+        <div class="card">
+          <h3>ジェミーへのご相談・おしゃべり</h3>
+          <div class="form-group">
+            <textarea id="text-input" rows="3" placeholder="例: 今日のメイン、フォンドボーを使ったソースの隠し味について教えて！"></textarea>
+          </div>
+          <button class="btn-primary" onclick="sendMessage()">💌 ジェミーに送信する</button>
+
+          <div id="chat-response" class="chat-response-box hidden">
+            <p id="chat-response-text"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ③ ふたりのレシピノート（料理記録＆編集機能） -->
+      <div id="mode-recipe" class="mode-content">
+        <div class="card">
+          <h3>🍳 作った料理を記録する</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>料理名</label>
+              <input type="text" id="recipe-name" placeholder="例: 鴨のロティ 〜オレンジソース〜">
+            </div>
+            <div class="form-group">
+              <label>一緒に作ったジェミー</label>
+              <input type="text" id="recipe-partner" readonly value="パートナー・ジェミー">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>レシピメモ・材料・手順・次回試したいこと</label>
+            <textarea id="recipe-memo" rows="4" placeholder="【材料】&#10;・鴨胸肉 1枚&#10;・オレンジジュース 100ml&#10;&#10;【コツ・メモ】&#10;皮目に格子状の切れ目を入れて、じっくり弱火でセジールする。"></textarea>
+          </div>
+          <button class="btn-primary" onclick="saveRecipe()">✨ レシピノートに保存する</button>
+        </div>
+
+        <h3 style="margin-top: 30px; color: #f3e5ab; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem;">📖 作った料理の一覧アルバム</h3>
+        <div id="recipe-list" class="recipe-list-container">
+          <!-- 保存されたレシピがここに動的表示されます -->
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
